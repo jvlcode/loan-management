@@ -1,0 +1,277 @@
+{
+	"info": {
+		"_postman_id": "77236f18-b06a-4405-b1f7-377954af5737",
+		"name": "Loan Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\":\"Logesh\",\r\n    \"middle_name\":\"Logesh\",\r\n    \"last_name\":\"Logesh\",\r\n    \"email\":\"updatelogesh@gmail.com\",\r\n    \"password\":\"12345678\",\r\n    \"c_password\":\"12345678\",\r\n    \"phone\":\"9876543210\",\r\n    \"address\":\"manali mathur mmda, chennai\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/user/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"register"
+							]
+						},
+						"description": "This API services will register a new user for the app. returns **token** for authentication."
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\":\"updatelogesh@gmail.com\",\"password\":\"12345678\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/user/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"login"
+							]
+						},
+						"description": "This API services will login a existing user for the app. returns **token** for authentication."
+					},
+					"response": []
+				}
+			],
+			"description": "This folder contains the API services for users"
+		},
+		{
+			"name": "Loan",
+			"item": [
+				{
+					"name": "Loan plans",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/loan/plans",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"loan",
+								"plans"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Loan types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/loan/types",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"loan",
+								"types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apply Loan",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"loan_type_id\":1,\r\n    \"amount\":\"100000\",\r\n    \"purpose\":\"For Bakery Shop\",\r\n    \"loan_plan_id\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/loan/apply",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"loan",
+								"apply"
+							]
+						},
+						"description": "This API service use apply or create loan for the authenticated user and returns **reference no** for further process.\n\n**loan_type_id** is the reference id which available from **Loan Types** API services.\n\n**loan_plan_id** is the reference id which available from **Loan Plans** API services."
+					},
+					"response": []
+				},
+				{
+					"name": "Loan Details",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ref_no\":\"1631909832\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/loan",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"loan"
+							]
+						},
+						"description": "**ref_no** can be used from the \"Apply Loan\" service."
+					},
+					"response": []
+				},
+				{
+					"name": "Loan Approval",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\":1,\r\n    \"ref_no\":\"1631909832\"\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/loan/status",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"loan",
+								"status"
+							]
+						},
+						"description": "This service will be used to update the status of the loan application. accepted **status** values\n\n0=pending\n\n1=approved\n\n2=rejected\n\n**ref_no** can be used from the \"Apply Loan\" service."
+					},
+					"response": []
+				},
+				{
+					"name": "Payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ref_no\":\"1631909832\",\r\n    \"amount\":\"33319.97\",\r\n    \"payee\":\"Jayagopi\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/loan/payment",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"loan",
+								"payment"
+							]
+						},
+						"description": "This service can process the payment of a loan in every cycles.\n\nWithout the approval of the loan payment cannot be processed.\n\nAfter loan payment is complete, payment cannot be processed.\n\n**ref_no** can be used from the \"Apply Loan\" service."
+					},
+					"response": []
+				}
+			],
+			"description": "This folder contains the API services for the loan management. All services needs the authorization token.",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}
